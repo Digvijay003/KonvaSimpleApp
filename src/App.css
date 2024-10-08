@@ -1,0 +1,28 @@
+/* Ensure the divs take full height and half width */
+html, body {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.controls {
+  width: 50%; /* 50% width */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.canvas-container {
+  width: 50%; /* 50% width */
+  height: 100%; /* Full height */
+  border-left: 2px solid #ccc; /* Separate the two sections */
+}
