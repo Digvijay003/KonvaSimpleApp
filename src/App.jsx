@@ -7,6 +7,7 @@ function App() {
   const [input,setInput]=useState('')
   const [itemCount,setItemCount]=useState(0)
   const [selectedText, setSelectedText] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false); 
 
  
   const stageRef = useRef(null);  
@@ -143,6 +144,14 @@ function App() {
       videoRef.current.play();
     }
   };
+  const handleToggleVideo = () => {
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+    setIsPlaying(!isPlaying); // Toggle the playing state
+  };
 
   // Pause video
   const handlePauseVideo = () => {
@@ -159,6 +168,14 @@ function App() {
       layerRef.current.batchDraw();
     }
   };
+  const handleRemoveText = () => {
+    if (selectedText) {
+      selectedText.destroy(); // Remove the text from the layer
+      transformerRef.current.nodes([]); // Clear transformer nodes
+      layerRef.current.batchDraw(); // Redraw the layer
+      setSelectedText(null); // Clear selected text state
+    }
+  };
  
 
   return (
@@ -167,6 +184,7 @@ function App() {
     <div className='controls'>
       <input value={input}onChange={e=>setInput(e.target.value)}/>
       <button onClick={handleAddText}>Add text</button>
+      <button onClick={handleRemoveText}>Remove Text</button>
       <input type="file" accept="image/*" onChange={handleFileUpload} />
       <div>
 
@@ -177,6 +195,7 @@ function App() {
         <button onClick={() => moveText(0, 10)}>Move Down</button>
         <button onClick={() => moveText(-10, 0)}>Move Left</button>
         <button onClick={() => moveText(10, 0)}>Move Right</button>
+        <button onClick={handleToggleVideo}>{isPlaying ? 'Pause Video' : 'Play Video'}</button>
       </div>
     </div>
     <div className='canvas-container'ref={stageRef}>
